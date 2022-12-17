@@ -1,34 +1,43 @@
-#include "../include/Game.hpp"
-#include "../include/DEFINITIONS.hpp"
-/*
-    Game constructor -> Initialize functions : window, enemies, etc.
-    while loop -> game.runnin() : check if game is still running
-        -> game.update() : check for window closed
-        -> game.render() : clear window then display new one
-*/
+#include <SDL2/SDL.h>
+#include <iostream>
 
-int main() {
-  // initialize random seed
-  std::srand(static_cast<unsigned>(time(nullptr)));  // nullptr is 0 here (?)
+int main(int argv, char** args) {
+  SDL_Init(SDL_INIT_EVERYTHING);
 
-  std::shared_ptr<sf::RenderWindow> data = std::make_shared<sf::RenderWindow>();
+  SDL_Window* window     = SDL_CreateWindow("Hello SDL",
+                                        SDL_WINDOWPOS_CENTERED,
+                                        SDL_WINDOWPOS_CENTERED,
+                                        800,
+                                        600,
+                                        0);
+  SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
-  data->create(sf::VideoMode(VIDEOMODE_WIDTH, VIDEOMODE_HEIGHT),
-               "title",
-               sf::Style::Close | sf::Style::Titlebar);
-  std::cout << "Original data ptr win size: " << data->getSize().x << " x "
-            << data->getSize().y << std::endl;
+  bool isRunning = true;
+  SDL_Event event;
 
-  // initialize game object through constructor
-  Game game(data);
+  while (isRunning) {
+    while (SDL_PollEvent(&event)) {
+      switch (event.type) {
+        case SDL_QUIT:
+          isRunning = false;
+          break;
 
-  // game loop
+        case SDL_KEYDOWN:
+          if (event.key.keysym.sym == SDLK_ESCAPE) {
+            isRunning = false;
+          }
+      }
+    }
 
-  while (game.Running()) {  // if window not close and not game over with
-                            // endGame
+    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
-    game.Update();  // update all variables, including renderWind ow
-    game.Render();  // render all variables
+    SDL_RenderPresent(renderer);
   }
+
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+  SDL_Quit();
+
   return 0;
 }
