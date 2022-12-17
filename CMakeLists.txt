@@ -12,9 +12,35 @@ file( GLOB LIB_HEADERS lib/*.hpp )
 file( GLOB INCLUDE_HEADERS include/*.hpp )
 add_executable(${PROJECT_NAME} ${LIB_SOURCES} ${LIB_HEADERS} ${INCLUDE_HEADERS}) 
 #*=============================================================================
+#                         EGL 
+#=============================================================================*/
+# include(FetchContent)
+# FetchContent_Declare(
+#   egl #has to be lowercase? 
+#   GIT_REPOSITORY https://github.com/KhronosGroup/EGL-Registry.git
+#   GIT_TAG        main
+# )
+# FetchContent_MakeAvailable(egl)
+# include_directories(${egl_SOURCE_DIR}/api)
+# message(${egl_SOURCE_DIR})
+#*=============================================================================
+#                         OpenGL
+#=============================================================================*/
+# include(FetchContent)
+# FetchContent_Declare(
+#   opengl #has to be lowercase? 
+#   GIT_REPOSITORY https://github.com/KhronosGroup/OpenGL-Registry.git
+#   GIT_TAG        main
+# )
+# # After the following call, the CMake targets defined by opengl and
+# # opengl will be available to the rest of the build
+# FetchContent_MakeAvailable(opengl)
+# include_directories(${opengl_SOURCE_DIR}/api)
+# message(${opengl_SOURCE_DIR})
+#*=============================================================================
 #                         SDL2 
 #=============================================================================*/
-include_directories(includes usr/include C:/SDL2-devel-2.26.1-mingw/SDL2-2.26.1/x86_64-w64-mingw32/include) 
+include_directories(includes C:/SDL2-devel-2.26.1-mingw/SDL2-2.26.1/x86_64-w64-mingw32/include) 
 set(SDL2_ROOT C:/SDL2-devel-2.26.1-mingw)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SDL2 REQUIRED SDL2)
