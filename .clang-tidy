@@ -34,7 +34,8 @@ Checks: >
   -cppcoreguidelines-special-member-functions,
   -modernize-use-nodiscard,
   -cppcoreguidelines-owning-memory,
-  -cppcoreguidelines-pro-type-union-access
+  -cppcoreguidelines-pro-type-union-access,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic
   
 
 
@@ -61,4 +62,3 @@ CheckOptions:
   - { key: readability-identifier-naming.MemberConstantPrefix,     value: k         }
   - { key: readability-identifier-naming.StaticConstantCase,       value: camelBack }
   - { key: readability-identifier-naming.StaticConstantPrefix,     value: k         }
-
