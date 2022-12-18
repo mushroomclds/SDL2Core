@@ -10,8 +10,8 @@ class Game {
   explicit Game(std::shared_ptr<SDL_Window> windowData);
   ~Game();
   void Update();
-  void Render(SDL_Renderer* render);
-  void InitWindow();
+  void static Render(SDL_Renderer* render);
+  void static InitWindow();
   void CheckCollisions();
 
   bool Running() const;

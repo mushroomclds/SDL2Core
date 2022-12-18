@@ -12,7 +12,7 @@ void InitBoost() {
   logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::info);
 }
 
-int main(int argv, char** args) {
+int main(int /*argc*/, char** /*argv*/) {
 
   InitBoost();  //intialize boost logging
   LOG << "Boost Logging Successful";
@@ -32,8 +32,8 @@ int main(int argv, char** args) {
   SDL_Renderer* render = SDL_CreateRenderer(window, -1, 0);
 
   while (game.Running()) {
-    game.Update();        // update all variables, including renderWind ow
-    game.Render(render);  // render all varia bles
+    game.Update();         // update all variables, including renderWindow
+    Game::Render(render);  // render all varia bles
   }
 
   //clean up after window closed

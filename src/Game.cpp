@@ -1,9 +1,11 @@
+#include <SDL_events.h>
 #include <SDL_render.h>
 #include <utility>
 
 #include "../include./Game.hpp"
 
-Game::Game(std::shared_ptr<SDL_Window> windowData) : windowData_(std::move(windowData)) {
+Game::Game(std::shared_ptr<SDL_Window> windowData)
+    : windowData_(std::move(windowData)), renderer_(), event_() {
 }
 
 Game::~Game() {  // deconstrutor definition
@@ -45,7 +47,11 @@ void Game::Update() {  // update game variables before rendered
 
 void Game::Render(SDL_Renderer* render) {  // renders all variables to the screen, last thing done.
   SDL_RenderClear(render);
-  SDL_SetRenderDrawColor(render, 255, 0, 0, 255);
+  const int rField     = 225;
+  const int gField     = 0;
+  const int bField     = 0;
+  const int alphaField = 225;
+  SDL_SetRenderDrawColor(render, rField, gField, bField, alphaField);
   SDL_RenderPresent(render);
 }
 
