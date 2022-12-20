@@ -1,8 +1,8 @@
-#include <SDL_events.h>
-#include <SDL_render.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_render.h>
 #include <utility>
 
-#include "../include./Game.hpp"
+#include "../include/Game.hpp"
 
 Game::Game(std::shared_ptr<SDL_Window> windowData)
     : windowData_(std::move(windowData)), renderer_(), event_() {
