@@ -20,7 +20,6 @@ class GameStateManager {
 
   static void OnRender(SDL_Surface* Surf_Display);
 
- public:
   static void SetActiveAppState(int AppStateID);
 
   static GameState* GetActiveAppState();

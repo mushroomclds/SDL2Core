@@ -10,7 +10,6 @@ class GameIntroState : public GameState {
 
   int StartTime;
 
- private:
   GameIntroState();
 
  public:

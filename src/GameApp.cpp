@@ -12,7 +12,7 @@ bool GameApp::OnInit() {
 
   // SDL_EnableKeyRepeat(1, SDL_DEFAULT_REPEAT_INTERVAL / 3);
 
-  CAppStateManager::SetActiveAppState(APPSTATE_INTRO);
+  GameStateManager::SetActiveAppState(APPSTATE_INTRO);
 
   return true;
 }
@@ -20,7 +20,7 @@ bool GameApp::OnInit() {
 void GameApp::OnEvent(SDL_Event* Event) {
   //   CEvent::OnEvent(Event);
 
-  CAppStateManager::OnEvent(Event);
+  GameStateManager::OnEvent(Event);
 }
 
 void GameApp::OnExit() {
@@ -28,7 +28,7 @@ void GameApp::OnExit() {
 }
 
 void GameApp::OnLoop() {
-  CAppStateManager::OnLoop();
+  GameStateManager::OnLoop();
 
   //   CFPS::FPSControl.OnLoop();
 
@@ -38,8 +38,46 @@ void GameApp::OnLoop() {
 }
 
 void GameApp::OnCleanup() {
-  CAppStateManager::SetActiveAppState(APPSTATE_NONE);
+  GameStateManager::SetActiveAppState(APPSTATE_NONE);
 
   SDL_FreeSurface(Surf_Display);
   SDL_Quit();
 }
+
+//==============================================================================
+GameApp::GameApp() {
+  Surf_Display = NULL;
+
+  Running = true;
+}
+
+//------------------------------------------------------------------------------
+int GameApp::OnExecute() {
+  if (OnInit() == false) {
+    return -1;
+  }
+
+  SDL_Event Event;
+
+  while (Running) {
+    while (SDL_PollEvent(&Event)) {
+      OnEvent(&Event);
+    }
+
+    OnLoop();
+    OnRender();
+  }
+
+  OnCleanup();
+
+  return 0;
+}
+
+//==============================================================================
+int main(int argc, char** argv) {
+  GameApp theApp;
+
+  return theApp.OnExecute();
+}
+
+//==============================================================================

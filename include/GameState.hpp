@@ -1,9 +1,9 @@
 #pragma once
 
 #include <SDL_surface.h>
-// #include "CEvent.h"
+#include "CEvent.h"
 
-class GameState /* :public CEvent*/ {  //interface class
+class GameState : public CEvent {  //interface class
  public:
   virtual ~GameState() = default;
   GameState();

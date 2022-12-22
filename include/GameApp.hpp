@@ -5,12 +5,12 @@
 // #include "Define.hpp"
 
 #include "../include/GameStateManager.hpp"
-#include "CFPS.h"
+// #include "CFPS.h"
 
 #include "CEvent.h"
-#include "CSurface.h"
+// #include "CSurface.h"
 
-class GameApp /*: public CEvent */ {
+class GameApp : public CEvent {
  private:
   bool Running;
 
@@ -21,7 +21,6 @@ class GameApp /*: public CEvent */ {
 
   int OnExecute();
 
- public:
   bool OnInit();
 
   void OnEvent(SDL_Event* Event);

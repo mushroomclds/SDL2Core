@@ -8,22 +8,16 @@
 
 // #include "CPlayer.h"
 
-class CAppStateGame : public GameState {
+class GameStateGame : public GameState {
  private:
-  static CAppStateGame Instance;
-
+  static GameStateGame Instance;
   //   CPlayer Player;
   //   CPlayer Player2;
-
- private:
-  CAppStateGame();
+  GameStateGame();
 
  public:
   //   void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
-
   //   void OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode);
-
- public:
   void OnActivate();
 
   void OnDeactivate();
@@ -32,5 +26,5 @@ class CAppStateGame : public GameState {
 
   void OnRender(SDL_Surface* Surf_Display);
 
-  static CAppStateGame* GetInstance();
+  static GameStateGame* GetInstance();
 };
