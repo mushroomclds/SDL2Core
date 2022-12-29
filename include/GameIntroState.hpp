@@ -1,26 +1,26 @@
-#pragma once
-#include "GameState.hpp"
-// #include "CSurface.h"
+// #pragma once
+// #include "GameState.hpp"
+// // #include "CSurface.h"
 
-class GameIntroState : public GameState {
- private:
-  static GameIntroState Instance;
+// class GameIntroState : public GameState {
+//  private:
+//   static GameIntroState Instance;
 
-  SDL_Surface* Surf_Logo;
+//   SDL_Surface* Surf_Logo;
 
-  int StartTime;
+//   int StartTime;
 
-  GameIntroState();
+//   GameIntroState();
 
- public:
-  void OnActivate();
+//  public:
+//   void OnActivate();
 
-  void OnDeactivate();
+//   void OnDeactivate();
 
-  void OnLoop();
+//   void OnLoop();
 
-  void OnRender(SDL_Surface* Surf_Display);
+//   void OnRender(SDL_Surface* Surf_Display);
 
- public:
-  static GameIntroState* GetInstance();
-};
+//  public:
+//   static GameIntroState* GetInstance();
+// };

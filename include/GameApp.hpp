@@ -1,35 +1,34 @@
-#pragma once
+// #pragma once
 
-#include <SDL.h>
+// #include <SDL.h>
 
-// #include "Define.hpp"
+// // #include "Define.hpp"
 
-#include "../include/GameStateManager.hpp"
-// #include "CFPS.h"
+// #include "../include/GameStateManager.hpp"
+// // #include "CFPS.h"
 
-#include "CEvent.h"
-// #include "CSurface.h"
+// // #include "CSurface.h"
 
-class GameApp : public CEvent {
- private:
-  bool Running;
+// class GameApp {
+//  private:
+//   bool Running;
 
-  SDL_Surface* Surf_Display;
+//   SDL_Surface* Surf_Display;
 
- public:
-  GameApp();
+//  public:
+//   GameApp();
 
-  int OnExecute();
+//   int OnExecute();
 
-  bool OnInit();
+//   bool OnInit();
 
-  void OnEvent(SDL_Event* Event);
+//   void OnEvent(SDL_Event* Event);
 
-  void OnExit();
+//   void OnExit();
 
-  void OnLoop();
+//   void OnLoop();
 
-  void OnRender();
+//   void OnRender();
 
-  void OnCleanup();
-};
+//   void OnCleanup();
+// };
