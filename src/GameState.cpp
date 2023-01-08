@@ -32,13 +32,9 @@ void GameState::OnLoop() {
 /*=============================================================================
 #                                   MENU 
 #=============================================================================*/
-Menu::Menu() {  //   backgroundTexture = IMG_LoadTexture(ren, "./Menu-1.png");
-  // backgroundTexture = IMG_LoadTexture(ren, "Menu-2.png");
-  // SDL_Surface* bg = IMG_Load("Menu-2.png");
-  // SDL_Surface* image = SDL_LoadBMP("Menu-2.png");
-  // backgroundTexture  = SDL_CreateTextureFromSurface(ren, image);
+Menu::Menu() {
   this->bgd = IMG_LoadTexture(ren, "../Menu-2.png");
-  if (!this->bgd) {
+  if (this->bgd == nullptr) {
     LOG << "bgd image load error " << SDL_GetError();
   }
 }
@@ -50,16 +46,22 @@ void Menu::OnActivate() {
 
 void Menu::OnDeactivate() {
 }
+
+/*=============================================================================
+#                                   Render  
+#=============================================================================*/
 void Menu::OnRender() {
   SDL_RenderClear(ren);
   SDL_RenderCopy(ren, this->bgd, NULL, NULL);
   SDL_RenderPresent(ren);
 }
+
+/*=============================================================================
+#                                   Poll Events 
+#=============================================================================*/
 void Menu::OnLoop() {
   while (gameRunning) {
-    /*=============================================================================
-    #                                   Poll Events 
-    #=============================================================================*/
+
     SDL_Event e;
     while (SDL_PollEvent(&e) != 0) {
       switch (e.type) {
@@ -72,9 +74,6 @@ void Menu::OnLoop() {
           }
       }
     }
-    /*=============================================================================
-    #                                   Render  
-    #=============================================================================*/
     OnRender();
   }
 }
