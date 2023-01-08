@@ -3,10 +3,12 @@
 #include <SDL_render.h>
 #include <SDL_surface.h>
 #include <SDL.h>
-#include <SDL_image.h>
+// #include <build/_deps/sdl_image-src/SDL_image.h>
+// #include "IMG.c"
 #include <SDL_video.h>
 
-static int k = SDL_Init(SDL_INIT_EVERYTHING);
+static int k            = SDL_Init(SDL_INIT_EVERYTHING);
+static bool gameRunning = true;
 
 class GameState {  //interface class
  public:
@@ -28,7 +30,7 @@ class GameState {  //interface class
   virtual void OnRender() = 0;
   // virtual void OnRender(SDL_Surface* Surf_Display) = 0;
 
-  SDL_Texture* backgroundTexture;
+  SDL_Texture* bgd;
 };
 
 class Menu : public GameState {
