@@ -6,6 +6,7 @@
 // #include <build/_deps/sdl_image-src/SDL_image.h>
 // #include "IMG.c"
 #include <SDL_video.h>
+#include <memory>
 
 static int k            = SDL_Init(SDL_INIT_EVERYTHING);
 static bool gameRunning = true;
@@ -17,6 +18,15 @@ class GameState {  //interface class
 
   static SDL_Window* win;
   static SDL_Renderer* ren;
+
+  static GameState* menu;
+  static GameState* options;
+  static GameState* currentGameState;
+  // static std::unique_ptr<GameState> options;
+  // static std::unique_ptr<GameState> currentGameState;
+  // static std::shared_ptr<GameState> menu;
+  // static std::shared_ptr<GameState> options;
+  // static std::unique_ptr<GameState> currentGameState;
 
   //enter
   virtual void OnActivate() = 0;  //equal 0 requires inheriter class to define func.
@@ -31,14 +41,4 @@ class GameState {  //interface class
   // virtual void OnRender(SDL_Surface* Surf_Display) = 0;
 
   SDL_Texture* bgd;
-};
-
-class Menu : public GameState {
- public:
-  Menu();
-  virtual ~Menu();
-  void OnActivate();
-  void OnDeactivate();
-  void OnLoop();
-  void OnRender();
 };

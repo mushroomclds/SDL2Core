@@ -1,4 +1,7 @@
 #include <GameState.hpp>
+#include <memory>
+#include "MenuState.hpp"
+#include "OptionsState.hpp"
 #include "SDL_image.h"
 #include <SDL_error.h>
 #include <SDL_events.h>
@@ -13,8 +16,25 @@ SDL_Window* GameState::win = SDL_CreateWindow("window",
                                               SDL_WINDOW_RESIZABLE);
 
 SDL_Renderer* GameState::ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+
+GameState* GameState::menu             = new Menu;
+GameState* GameState::options          = new Options;
+GameState* GameState::currentGameState = menu;
+
+// std::unique_ptr<GameState> GameState::menu(new Menu);
+// GameState* GameState::currentGameState = menu;
+
+// GameState* GameState::menu(new Menu);
+// std::unique_ptr<GameState> GameState::options(new Options);
+// std::unique_ptr<GameState> currentGameState = GameState::menu;
+
+// std::shared_ptr<GameState> GameState::menu             = std::make_shared<GameState>();
+// std::shared_ptr<GameState> GameState::options          = std::make_shared<GameState>();
+
+// std::unique_ptr<GameState> GameState::currentGameState = std::move(menu);
 /*=============================================================================
 #                                   GameState 
+#                                 ABSTRACT CLASS
 #=============================================================================*/
 GameState::GameState() = default;
 
@@ -28,52 +48,4 @@ void GameState::OnDeactivate() {
 void GameState::OnRender() {
 }
 void GameState::OnLoop() {
-}
-/*=============================================================================
-#                                   MENU 
-#=============================================================================*/
-Menu::Menu() {
-  this->bgd = IMG_LoadTexture(ren, "../Menu-2.png");
-  if (this->bgd == nullptr) {
-    LOG << "bgd image load error " << SDL_GetError();
-  }
-}
-
-Menu::~Menu() = default;
-
-void Menu::OnActivate() {
-}
-
-void Menu::OnDeactivate() {
-}
-
-/*=============================================================================
-#                                   Render  
-#=============================================================================*/
-void Menu::OnRender() {
-  SDL_RenderClear(ren);
-  SDL_RenderCopy(ren, this->bgd, NULL, NULL);
-  SDL_RenderPresent(ren);
-}
-
-/*=============================================================================
-#                                   Poll Events 
-#=============================================================================*/
-void Menu::OnLoop() {
-  while (gameRunning) {
-
-    SDL_Event e;
-    while (SDL_PollEvent(&e) != 0) {
-      switch (e.type) {
-        case SDL_QUIT:
-          OnDeactivate();
-          gameRunning = false;
-        case SDL_KEYDOWN:
-          if (e.key.keysym.sym == SDLK_ESCAPE) {
-            gameRunning = false;
-          }
-      }
-    }
-    OnRender();
-  }
 }
