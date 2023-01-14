@@ -20,7 +20,7 @@ SDL_Renderer* GameState::ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERA
 GameState* GameState::menu             = new Menu;
 GameState* GameState::options          = new Options;
 GameState* GameState::currentGameState = menu;
-
+bool GameState::gameRunning            = true;
 // std::unique_ptr<GameState> GameState::menu(new Menu);
 // GameState* GameState::currentGameState = menu;
 
@@ -41,6 +41,7 @@ GameState::GameState() = default;
 void GameState::OnActivate() {
 }
 void GameState::OnDeactivate() {
+  LOG << "GameState memory freed";
   SDL_DestroyRenderer(ren);
   SDL_DestroyWindow(win);
   SDL_Quit();
@@ -48,4 +49,5 @@ void GameState::OnDeactivate() {
 void GameState::OnRender() {
 }
 void GameState::OnLoop() {
+  LOG << "GameState OnLoop()";
 }

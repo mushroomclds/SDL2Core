@@ -7,7 +7,8 @@
 /*=============================================================================
 #                                   MENU 
 #=============================================================================*/
-Menu::Menu() {
+#include <iostream>
+Menu::Menu() {  //initialized before main func since static class mem
   this->bgd = IMG_LoadTexture(ren, "../Menu-2.png");
   if (this->bgd == nullptr) {
     LOG << "bgd image load error " << SDL_GetError();
@@ -48,6 +49,7 @@ void Menu::OnLoop() {
     while (SDL_PollEvent(&e) != 0) {
       switch (e.type) {
         case SDL_QUIT:
+          LOG << "x closed";
           gameRunning = false;
           OnDeactivate();
           break;

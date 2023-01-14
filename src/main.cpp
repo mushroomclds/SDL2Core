@@ -2,7 +2,7 @@
 #include <memory>
 #include "GameState.hpp"
 #include "MenuState.hpp"
-#include "OptionsState.hpp"
+// #include "OptionsState.hpp"
 #include "DEFINITIONS.hpp"
 
 namespace logging  = boost::log;
@@ -20,15 +20,14 @@ int main(int /*argc*/, char** /*argv*/) {
   InitBoost();  //intialize boost logging
   LOG << "Boost Logging Successful";
 
-  // Menu menu;
+  // Menu menu; //debugging state works
   // menu.OnLoop();
 
-  // Options options;
+  // Options options; //debugging state works
   // options.OnLoop();
 
-  while (1) {
+  if (GameState::gameRunning) {
     GameState::currentGameState->OnLoop();
   }
-
   return 0;
 }

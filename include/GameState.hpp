@@ -8,8 +8,7 @@
 #include <SDL_video.h>
 #include <memory>
 
-static int k            = SDL_Init(SDL_INIT_EVERYTHING);
-static bool gameRunning = true;
+static int k = SDL_Init(SDL_INIT_EVERYTHING);
 
 class GameState {  //interface class
  public:
@@ -22,6 +21,7 @@ class GameState {  //interface class
   static GameState* menu;
   static GameState* options;
   static GameState* currentGameState;
+  static bool gameRunning;
   // static std::unique_ptr<GameState> options;
   // static std::unique_ptr<GameState> currentGameState;
   // static std::shared_ptr<GameState> menu;
