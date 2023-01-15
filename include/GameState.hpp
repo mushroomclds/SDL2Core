@@ -7,6 +7,7 @@
 // #include "IMG.c"
 #include <SDL_video.h>
 #include <memory>
+#include "Button.hpp"
 
 static int k = SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -22,6 +23,7 @@ class GameState {  //interface class
   static GameState* options;
   static GameState* currentGameState;
   static bool gameRunning;
+  static Mouse* mouse;
   // static std::unique_ptr<GameState> options;
   // static std::unique_ptr<GameState> currentGameState;
   // static std::shared_ptr<GameState> menu;
@@ -39,6 +41,7 @@ class GameState {  //interface class
 
   virtual void OnRender() = 0;
   // virtual void OnRender(SDL_Surface* Surf_Display) = 0;
+  void BaseUpdate();
 
   SDL_Texture* bgd;
 };

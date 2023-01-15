@@ -21,6 +21,7 @@ GameState* GameState::menu             = new Menu;
 GameState* GameState::options          = new Options;
 GameState* GameState::currentGameState = menu;
 bool GameState::gameRunning            = true;
+Mouse* GameState::mouse                = new Mouse(ren);
 // std::unique_ptr<GameState> GameState::menu(new Menu);
 // GameState* GameState::currentGameState = menu;
 
@@ -50,4 +51,8 @@ void GameState::OnRender() {
 }
 void GameState::OnLoop() {
   LOG << "GameState OnLoop()";
+}
+
+void GameState::BaseUpdate() {
+  mouse->Update();
 }

@@ -8,4 +8,6 @@ class Options : public GameState {
   void OnDeactivate();
   void OnLoop();
   void OnRender();
+
+  Button* menuButton;
 };

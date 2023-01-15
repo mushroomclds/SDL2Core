@@ -26,7 +26,7 @@ int main(int /*argc*/, char** /*argv*/) {
   // Options options; //debugging state works
   // options.OnLoop();
 
-  if (GameState::gameRunning) {
+  while (GameState::gameRunning) {
     GameState::currentGameState->OnLoop();
   }
   return 0;

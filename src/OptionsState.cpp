@@ -7,10 +7,12 @@
 #                                   MENU 
 #=============================================================================*/
 Options::Options() {
-  this->bgd = IMG_LoadTexture(ren, "../Menu-3.png");
+  this->bgd = IMG_LoadTexture(ren, "../images/Menu-3.png");
   if (this->bgd == nullptr) {
     LOG << "Options image load error " << SDL_GetError();
   }
+  menuButton = new Button(ren, 0, 128);
+  menuButton->setPosition(640 - (190 / 2), 500);
 }
 
 Options::~Options() {
@@ -28,7 +30,11 @@ void Options::OnDeactivate() {
 #=============================================================================*/
 void Options::OnRender() {
   SDL_RenderClear(ren);
-  SDL_RenderCopy(ren, this->bgd, NULL, NULL);
+  SDL_Rect rect{0, 0, 1280, 720};
+  SDL_RenderCopy(ren, this->bgd, NULL, &rect);
+
+  menuButton->Draw(ren);
+
   SDL_RenderPresent(ren);
 }
 
@@ -42,14 +48,18 @@ void Options::OnLoop() {
     while (SDL_PollEvent(&e) != 0) {
       switch (e.type) {
         case SDL_QUIT:
-          OnDeactivate();
           gameRunning = false;
-        case SDL_KEYDOWN:
-          if (e.key.keysym.sym == SDLK_ESCAPE) {
-            gameRunning = false;
-          }
+          OnDeactivate();
+          break;
+          // case SDL_KEYDOWN:
+          //   if (e.key.keysym.sym == SDLK_ESCAPE) {
+          //     gameRunning = false;
+          //   }
       }
     }
+
+    BaseUpdate();
+    menuButton->Update(mouse);
 
     auto key = SDL_GetKeyboardState(NULL);
     if (key[SDL_SCANCODE_ESCAPE]) {

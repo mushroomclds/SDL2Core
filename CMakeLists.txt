@@ -10,10 +10,11 @@ set(CMAKE_CXX_STANDARD 17)
 file( GLOB LIB_SOURCES src/*.cpp )
 file( GLOB LIB_HEADERS lib/*.hpp )
 file( GLOB INCLUDE_HEADERS include/*.hpp )
-add_executable(${PROJECT_NAME} ${LIB_SOURCES} ${LIB_HEADERS} ${INCLUDE_HEADERS}) 
+file( GLOB INCLUDE_IMAGES images/*.png)
+add_executable(${PROJECT_NAME} ${LIB_SOURCES} ${LIB_HEADERS} ${INCLUDE_HEADERS} ${INCLUDE_IMAGES}) 
 # set(HEADER_FILES )
 # add_library(headers ${LIB_SOURCES})
-target_include_directories(${PROJECT_NAME} PRIVATE include build/_deps/sdl_image-src)
+target_include_directories(${PROJECT_NAME} PUBLIC include build/_deps/sdl_image-src images)
 #*=============================================================================
 #                         EGL 
 #=============================================================================*/
