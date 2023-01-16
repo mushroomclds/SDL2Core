@@ -24,6 +24,7 @@ class GameState {  //interface class
   static GameState* currentGameState;
   static bool gameRunning;
   static Mouse* mouse;
+  bool stateRunning = false;
   // static std::unique_ptr<GameState> options;
   // static std::unique_ptr<GameState> currentGameState;
   // static std::shared_ptr<GameState> menu;

@@ -40,6 +40,7 @@ Mouse* GameState::mouse                = new Mouse(ren);
 GameState::GameState() = default;
 
 void GameState::OnActivate() {
+  gameRunning = true;
 }
 void GameState::OnDeactivate() {
   LOG << "GameState memory freed";

@@ -1,7 +1,9 @@
 #include "MenuState.hpp"
+#include <SDL_events.h>
 #include <SDL_keyboard.h>
 #include <SDL_rect.h>
 #include <SDL_render.h>
+#include "GameState.hpp"
 #include "SDL_image.h"
 #include "DEFINITIONS.hpp"
 
@@ -23,6 +25,7 @@ Menu::~Menu() {
 };
 
 void Menu::OnActivate() {
+  stateRunning = true;
 }
 
 void Menu::OnDeactivate() {
@@ -51,24 +54,23 @@ void Menu::OnRender() {
 #                                   Poll Events 
 #=============================================================================*/
 void Menu::OnLoop() {
-  while (gameRunning) {
+  while (stateRunning) {
 
     SDL_Event e;
     while (SDL_PollEvent(&e) != 0) {
       switch (e.type) {
         case SDL_QUIT:
           LOG << "x closed";
-          gameRunning = false;
+          gameRunning  = false;
+          stateRunning = false;
           OnDeactivate();
           break;
-          // case SDL_KEYDOWN:
-          //   if (e.key.keysym.sym == SDLK_ESCAPE) {
-          //     LOG << "event escape";
-
-          //     gameRunning = false;
-          //     OnDeactivate();
-          //   }
-          //   break;
+        case SDL_MOUSEBUTTONUP:
+          if (optionsButton->selected) {
+            currentGameState = options;
+            stateRunning     = false;
+          }
+          break;
       }
     }
 
@@ -78,7 +80,8 @@ void Menu::OnLoop() {
     auto key = SDL_GetKeyboardState(NULL);
     if (key[SDL_SCANCODE_ESCAPE]) {
       LOG << "scancode escape";
-      gameRunning = false;
+      gameRunning  = false;
+      stateRunning = false;
       OnDeactivate();
     }
     if (key[SDL_SCANCODE_1]) {

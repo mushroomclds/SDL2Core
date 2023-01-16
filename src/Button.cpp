@@ -21,13 +21,10 @@ Button::~Button() {
 
 void Button::Update(Mouse* mouse) {
   if (SDL_HasIntersection(&mouse->point, &drect)) {
-    LOG << "button update true at: ";
     selected = true;
     srect.x  = 192;
   }
   else {
-    LOG << "button update false";
-
     selected = false;
     srect.x  = 0;
   }

@@ -1,5 +1,6 @@
 #include "OptionsState.hpp"
 #include <SDL_render.h>
+#include "GameState.hpp"
 #include "SDL_image.h"
 #include "DEFINITIONS.hpp"
 
@@ -20,6 +21,7 @@ Options::~Options() {
 };
 
 void Options::OnActivate() {
+  stateRunning = true;
 }
 
 void Options::OnDeactivate() {
@@ -42,19 +44,26 @@ void Options::OnRender() {
 #                                   Poll Events 
 #=============================================================================*/
 void Options::OnLoop() {
-  while (gameRunning) {
+  while (stateRunning) {
 
     SDL_Event e;
     while (SDL_PollEvent(&e) != 0) {
       switch (e.type) {
         case SDL_QUIT:
-          gameRunning = false;
+          gameRunning  = false;
+          stateRunning = false;
           OnDeactivate();
           break;
-          // case SDL_KEYDOWN:
-          //   if (e.key.keysym.sym == SDLK_ESCAPE) {
-          //     gameRunning = false;
-          //   }
+        // case SDL_KEYDOWN:
+        //   if (e.key.keysym.sym == SDLK_ESCAPE) {
+        //     gameRunning = false;
+        //   }
+        case SDL_MOUSEBUTTONUP:
+          if (menuButton->selected) {
+            currentGameState = menu;
+            stateRunning     = false;
+          }
+          break;
       }
     }
 
@@ -63,6 +72,8 @@ void Options::OnLoop() {
 
     auto key = SDL_GetKeyboardState(NULL);
     if (key[SDL_SCANCODE_ESCAPE]) {
+      gameRunning  = false;
+      stateRunning = false;
       OnDeactivate();
     }
     if (key[SDL_SCANCODE_2]) {

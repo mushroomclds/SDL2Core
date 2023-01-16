@@ -27,6 +27,7 @@ int main(int /*argc*/, char** /*argv*/) {
   // options.OnLoop();
 
   while (GameState::gameRunning) {
+    GameState::currentGameState->OnActivate();
     GameState::currentGameState->OnLoop();
   }
   return 0;
