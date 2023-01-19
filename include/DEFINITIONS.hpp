@@ -19,18 +19,17 @@
 
 #define FRAMERATE 75
 
-#define VIDEOMODE_WIDTH 800
-#define VIDEOMODE_HEIGHT 600
+#define VIDEOMODE_WIDTH 1280
+#define VIDEOMODE_HEIGHT 720
 #define HALF_WIN_SIZE 2
 
-#define GRAVITY 1.f
-#define MOVE_RIGHT 0.01f
-#define MOVE_LEFT 0.01f
-#define JUMP 10.f
-#define DOUBLE_JUMP_MAX 15
-#define MOVE_DOWN 0.1f
-#define MOVE_SPEED_ALL 5.f
+#define SRECTH 64
+#define SRECTW 192
 
-#define PLAYER_SIZE 60.f
-#define WIDTH_OFFSET 10
-#define PLATFORM_WIDTH 10
+#define DRECTH 64
+#define DRECTW 192
+
+#define BUTTON_ONE_X 0
+#define BUTTON_ONE_Y 64
+#define BUTTON_ONE_XPOS 545
+#define BUTTON_ONE_YPOS 500

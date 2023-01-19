@@ -13,7 +13,7 @@ Options::Options() {
     LOG << "Options image load error " << SDL_GetError();
   }
   menuButton = new Button(ren, 0, 128);
-  menuButton->setPosition(640 - (190 / 2), 500);
+  menuButton->SetPosition(640 - (190 / 2), 500);
 }
 
 Options::~Options() {
@@ -32,8 +32,8 @@ void Options::OnDeactivate() {
 #=============================================================================*/
 void Options::OnRender() {
   SDL_RenderClear(ren);
-  SDL_Rect rect{0, 0, 1280, 720};
-  SDL_RenderCopy(ren, this->bgd, NULL, &rect);
+  SDL_Rect rect{0, 0, VIDEOMODE_WIDTH, VIDEOMODE_HEIGHT};
+  SDL_RenderCopy(ren, this->bgd, nullptr, &rect);
 
   menuButton->Draw(ren);
 
@@ -70,13 +70,13 @@ void Options::OnLoop() {
     BaseUpdate();
     menuButton->Update(mouse);
 
-    auto key = SDL_GetKeyboardState(NULL);
-    if (key[SDL_SCANCODE_ESCAPE]) {
+    const auto* key = SDL_GetKeyboardState(nullptr);
+    if (key[SDL_SCANCODE_ESCAPE] != 0u) {
       gameRunning  = false;
       stateRunning = false;
       OnDeactivate();
     }
-    if (key[SDL_SCANCODE_2]) {
+    if (key[SDL_SCANCODE_2] != 0u) {
       currentGameState = menu;
       break;
     }

@@ -18,7 +18,5 @@ class Button {
 
   void Update(Mouse* mouse);
   void Draw(SDL_Renderer* ren);
-  void setPosition(int x, int y);
-
- private:
+  void SetPosition(int x, int y);
 };

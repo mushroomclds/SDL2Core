@@ -42,7 +42,7 @@ class GameState {  //interface class
 
   virtual void OnRender() = 0;
   // virtual void OnRender(SDL_Surface* Surf_Display) = 0;
-  void BaseUpdate();
+  static void BaseUpdate();
 
-  SDL_Texture* bgd;
+  SDL_Texture* bgd{};
 };

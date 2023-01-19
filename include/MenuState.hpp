@@ -3,10 +3,10 @@
 class Menu : public GameState {
  public:
   Menu();
-  virtual ~Menu();
-  void OnActivate();
-  void OnDeactivate();
-  void OnLoop();
-  void OnRender();
+  ~Menu() override;
+  void OnActivate() override;
+  void OnDeactivate() override;
+  void OnLoop() override;
+  void OnRender() override;
   Button* optionsButton;
 };

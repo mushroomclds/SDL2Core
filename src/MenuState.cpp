@@ -16,8 +16,8 @@ Menu::Menu() {  //initialized before main func since static class mem
   if (this->bgd == nullptr) {
     LOG << "bgd image load error " << SDL_GetError();
   }
-  optionsButton = new Button(ren, 0, 64);
-  optionsButton->setPosition(640 - (190 / 2), 500);  //for destination rect
+  optionsButton = new Button(ren, BUTTON_ONE_X, BUTTON_ONE_Y);
+  optionsButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);  //for destination rect
 }
 
 Menu::~Menu() {
@@ -40,10 +40,13 @@ void Menu::OnDeactivate() {
 #                                   Render  
 #=============================================================================*/
 void Menu::OnRender() {
-  SDL_RenderClear(ren);            //clears window before new frame to render
-  SDL_Rect rect{0, 0, 1280, 720};  //bg rect that will have tex applied to below
+  SDL_RenderClear(ren);  //clears window before new frame to render
+  SDL_Rect rect{0,
+                0,
+                VIDEOMODE_WIDTH,
+                VIDEOMODE_HEIGHT};  //bg rect that will have tex applied to below
 
-  SDL_RenderCopy(ren, this->bgd, NULL, &rect);  //applies tex to bg
+  SDL_RenderCopy(ren, this->bgd, nullptr, &rect);  //applies tex to bg
   optionsButton->Draw(ren);
   mouse->Draw(ren);
 
@@ -77,14 +80,14 @@ void Menu::OnLoop() {
     BaseUpdate();
     optionsButton->Update(mouse);
 
-    auto key = SDL_GetKeyboardState(NULL);
-    if (key[SDL_SCANCODE_ESCAPE]) {
+    const auto* key = SDL_GetKeyboardState(nullptr);
+    if (key[SDL_SCANCODE_ESCAPE] != 0U) {
       LOG << "scancode escape";
       gameRunning  = false;
       stateRunning = false;
       OnDeactivate();
     }
-    if (key[SDL_SCANCODE_1]) {
+    if (key[SDL_SCANCODE_1] != 0U) {
       currentGameState = options;
       break;
     }
