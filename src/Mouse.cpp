@@ -4,14 +4,14 @@
 #include "SDL_image.h"
 
 Mouse::Mouse(SDL_Renderer* ren)
-    : rect(), point(), tex(IMG_LoadTexture(ren, "../images/mouse.png")) {
+    : rect(), point(), tex(IMG_LoadTexture(ren, "../images/mouse.png")), showCursor(false) {
   const int xPos   = 300;
   const int yPos   = 300;
   const int width  = 50;
   const int length = 50;
   rect             = {xPos, yPos, width, length};
   point            = {xPos, yPos, 1, 1};
-  SDL_ShowCursor(0);  //false
+  SDL_ShowCursor(static_cast<int>(showCursor));  //false
 }
 
 void Mouse::Update() {
@@ -22,4 +22,9 @@ void Mouse::Update() {
 
 void Mouse::Draw(SDL_Renderer* ren) {
   SDL_RenderCopy(ren, tex, nullptr, &rect);  //point in nullptr
+}
+
+void Mouse::UpdateShowCursorBool(bool showCursor) {
+  // this->showCursor = showCursor;
+  SDL_ShowCursor(static_cast<int>(showCursor));  //true
 }

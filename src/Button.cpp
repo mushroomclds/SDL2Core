@@ -35,7 +35,7 @@ void Button::Draw(SDL_Renderer* ren) {
   SDL_RenderCopy(ren, tex, nullptr, &drect);  //NULL should be srect but doesnt work for me
 }
 
-void Button::SetPosition(int x, int y) {
+void Button::SetPosition(const int& x, const int& y) {
   drect.x = x;  //destination rect
   drect.y = y;
   drect.h = DRECTH;

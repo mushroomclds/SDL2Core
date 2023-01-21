@@ -14,6 +14,7 @@ Options::Options() {
   }
   menuButton = new Button(ren, 0, 128);
   menuButton->SetPosition(640 - (190 / 2), 500);
+  Options::mouse->UpdateShowCursorBool(true);
 }
 
 Options::~Options() {
@@ -22,6 +23,7 @@ Options::~Options() {
 
 void Options::OnActivate() {
   stateRunning = true;
+  Options::mouse->UpdateShowCursorBool(true);
 }
 
 void Options::OnDeactivate() {

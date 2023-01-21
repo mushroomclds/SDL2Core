@@ -18,6 +18,7 @@ Menu::Menu() {  //initialized before main func since static class mem
   }
   optionsButton = new Button(ren, BUTTON_ONE_X, BUTTON_ONE_Y);
   optionsButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);  //for destination rect
+  Menu::mouse->UpdateShowCursorBool(false);
 }
 
 Menu::~Menu() {
@@ -26,6 +27,7 @@ Menu::~Menu() {
 
 void Menu::OnActivate() {
   stateRunning = true;
+  Menu::mouse->UpdateShowCursorBool(false);
 }
 
 void Menu::OnDeactivate() {

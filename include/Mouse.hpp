@@ -12,4 +12,7 @@ class Mouse {
   ~Mouse() = default;
   void Update();
   void Draw(SDL_Renderer* ren);
+
+  bool showCursor;
+  void UpdateShowCursorBool(bool);
 };

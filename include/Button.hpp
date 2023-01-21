@@ -7,7 +7,7 @@
 class Button {
 
  public:
-  static SDL_Texture* tex;
+  static SDL_Texture* tex;  //global variable
 
   Button(SDL_Renderer* ren, int x, int y);
   ~Button();
@@ -18,5 +18,5 @@ class Button {
 
   void Update(Mouse* mouse);
   void Draw(SDL_Renderer* ren);
-  void SetPosition(int x, int y);
+  void SetPosition(const int& x, const int& y);
 };
