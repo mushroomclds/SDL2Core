@@ -7,16 +7,23 @@
 class Button {
 
  public:
-  static SDL_Texture* tex;  //global variable
+  static SDL_Texture* tex;  //global variable, const
 
   Button(SDL_Renderer* ren, int x, int y);
   ~Button();
 
-  SDL_Rect srect;
-  SDL_Rect drect;
-  bool selected = false;
-
   void Update(Mouse* mouse);
   void Draw(SDL_Renderer* ren);
   void SetPosition(const int& x, const int& y);
+  void SetButtonSelected(bool buttonSelected);
+  void SetSRECT(int x, int y, int h, int w);
+  void SetSRECTX(int x) {
+    this->srect_.x = x;
+  }
+  void SetDRECT(int x, int y, int h, int w);
+
+ private:
+  bool selected_ = false;
+  SDL_Rect srect_;
+  SDL_Rect drect_;
 };
