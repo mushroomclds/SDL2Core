@@ -10,15 +10,15 @@
 /*=============================================================================
 #                                   MENU 
 #=============================================================================*/
-#include <iostream>
 Menu::Menu() {  //initialized before main func since static class mem
   this->bgd = IMG_LoadTexture(ren, "../images/Menu-2.png");
   if (this->bgd == nullptr) {
-    LOG << "bgd image load error " << SDL_GetError();
+    LOG << "bgd image load error "
+        << SDL_GetError();  //doesnt show because done at compile time since its static
   }
   optionsButton = new Button(ren, BUTTON_ONE_X, BUTTON_ONE_Y);
   optionsButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);  //for destination rect
-  Menu::mouse->UpdateShowCursorBool(false);
+  Mouse::UpdateShowCursorBool(false);  //can call directyl since its static function
 }
 
 Menu::~Menu() {
@@ -27,7 +27,7 @@ Menu::~Menu() {
 
 void Menu::OnActivate() {
   stateRunning = true;
-  Menu::mouse->UpdateShowCursorBool(false);
+  Mouse::UpdateShowCursorBool(false);
 }
 
 void Menu::OnDeactivate() {
@@ -71,7 +71,7 @@ void Menu::OnLoop() {
           OnDeactivate();
           break;
         case SDL_MOUSEBUTTONUP:
-          if (optionsButton->selected) {
+          if (optionsButton->GetButtonSelected()) {
             currentGameState = options;
             stateRunning     = false;
           }

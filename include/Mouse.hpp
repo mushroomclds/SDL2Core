@@ -5,14 +5,21 @@
 
 class Mouse {
  public:
-  SDL_Texture* tex{};
-  SDL_Rect rect;
-  SDL_Rect point;
   explicit Mouse(SDL_Renderer* ren);
   ~Mouse() = default;
   void Update();
   void Draw(SDL_Renderer* ren);
 
-  bool showCursor;
-  void UpdateShowCursorBool(bool);
+  // showCursor_
+  void static UpdateShowCursorBool(bool);
+  bool GetShowCursorBool();
+  // point_
+  void static SetPoint(SDL_Rect);
+  SDL_Rect& GetPoint();
+
+ private:
+  SDL_Texture* tex_{};
+  SDL_Rect rect_;
+  SDL_Rect point_;
+  bool showCursor_;
 };

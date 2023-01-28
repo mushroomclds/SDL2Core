@@ -4,27 +4,31 @@
 #include "SDL_image.h"
 
 Mouse::Mouse(SDL_Renderer* ren)
-    : rect(), point(), tex(IMG_LoadTexture(ren, "../images/mouse.png")), showCursor(false) {
+    : rect_(), point_(), tex_(IMG_LoadTexture(ren, "../images/mouse.png")), showCursor_(false) {
   const int xPos   = 300;
   const int yPos   = 300;
   const int width  = 50;
   const int length = 50;
-  rect             = {xPos, yPos, width, length};
-  point            = {xPos, yPos, 1, 1};
-  SDL_ShowCursor(static_cast<int>(showCursor));  //false
+  rect_            = {xPos, yPos, width, length};
+  point_           = {xPos, yPos, 1, 1};
+  SDL_ShowCursor(static_cast<int>(showCursor_));  //false
 }
 
 void Mouse::Update() {
-  SDL_GetMouseState(&rect.x, &rect.y);
-  point.y = rect.y;
-  point.x = rect.x;
+  SDL_GetMouseState(&rect_.x, &rect_.y);
+  point_.y = rect_.y;
+  point_.x = rect_.x;
 }
 
 void Mouse::Draw(SDL_Renderer* ren) {
-  SDL_RenderCopy(ren, tex, nullptr, &rect);  //point in nullptr
+  SDL_RenderCopy(ren, tex_, nullptr, &rect_);  //point_ in nullptr
 }
 
 void Mouse::UpdateShowCursorBool(bool showCursor) {
   // this->showCursor = showCursor;
   SDL_ShowCursor(static_cast<int>(showCursor));  //true
+}
+
+SDL_Rect& Mouse::GetPoint() {  //returns reference to point, basically like ptr bc address
+  return point_;
 }

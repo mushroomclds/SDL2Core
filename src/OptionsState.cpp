@@ -12,9 +12,9 @@ Options::Options() {
   if (this->bgd == nullptr) {
     LOG << "Options image load error " << SDL_GetError();
   }
-  menuButton = new Button(ren, 0, 128);
-  menuButton->SetPosition(640 - (190 / 2), 500);
-  Options::mouse->UpdateShowCursorBool(true);
+  menuButton = new Button(ren, 0, BUTTON_ONE_Y);  //BUTTON_ONE_Y should be 128 ?
+  menuButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);
+  Mouse::UpdateShowCursorBool(true);
 }
 
 Options::~Options() {
@@ -23,7 +23,7 @@ Options::~Options() {
 
 void Options::OnActivate() {
   stateRunning = true;
-  Options::mouse->UpdateShowCursorBool(true);
+  Mouse::UpdateShowCursorBool(true);
 }
 
 void Options::OnDeactivate() {
@@ -61,7 +61,7 @@ void Options::OnLoop() {
         //     gameRunning = false;
         //   }
         case SDL_MOUSEBUTTONUP:
-          if (menuButton->selected) {
+          if (menuButton->GetButtonSelected()) {
             currentGameState = menu;
             stateRunning     = false;
           }
@@ -73,12 +73,12 @@ void Options::OnLoop() {
     menuButton->Update(mouse);
 
     const auto* key = SDL_GetKeyboardState(nullptr);
-    if (key[SDL_SCANCODE_ESCAPE] != 0u) {
+    if (key[SDL_SCANCODE_ESCAPE] != 0U) {
       gameRunning  = false;
       stateRunning = false;
       OnDeactivate();
     }
-    if (key[SDL_SCANCODE_2] != 0u) {
+    if (key[SDL_SCANCODE_2] != 0U) {
       currentGameState = menu;
       break;
     }

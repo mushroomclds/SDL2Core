@@ -10,7 +10,7 @@ Button::Button(SDL_Renderer* ren, int x, int y) : srect_(), drect_() {
   if (tex == nullptr) {
     tex = IMG_LoadTexture(ren, "../images/options.png");
   }
-  SetDRECT(x, y, SRECTH, SRECTW);
+  SetSRECT(x, y, SRECTH, SRECTW);
 }
 
 Button::~Button() {
@@ -18,7 +18,7 @@ Button::~Button() {
 }
 
 void Button::Update(Mouse* mouse) {
-  if (SDL_HasIntersection(&mouse->point, &drect_) != 0) {
+  if (SDL_HasIntersection(&mouse->GetPoint(), &drect_) != 0) {
     SetButtonSelected(true);
     SetSRECTX(SRECTW);
   }
@@ -33,18 +33,21 @@ void Button::Draw(SDL_Renderer* ren) {
 }
 
 void Button::SetPosition(const int& x, const int& y) {
-  SetSRECT(x, y, DRECTH, DRECTW);
+  SetDRECT(x, y, DRECTH, DRECTW);
 }
 
 void Button::SetButtonSelected(bool buttonSelected) {
   this->selected_ = buttonSelected;
 }
+bool Button::GetButtonSelected() const {
+  return this->selected_;
+}
 
 void Button::SetDRECT(int x, int y, int h, int w) {
-  srect_.x = x;  //source rect
-  srect_.y = y;
-  srect_.h = h;  //SRECTH
-  srect_.w = w;  //SRECTW
+  drect_.x = x;  //source rect
+  drect_.y = y;
+  drect_.h = h;  //SRECTH
+  drect_.w = w;  //SRECTW
 }
 
 void Button::SetSRECT(int x, int y, int h, int w) {

@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.24.2)
 
 # project name
-project(SDL2-project) #${PROJECT_NAME}
+project(SDL2-project) #${PROJECT_NAME} 
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -70,7 +70,7 @@ include(FetchContent)
 FetchContent_Declare(
   sdl_image #has to be lowercase? 
   GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
-  GIT_TAG        SDL2
+  GIT_TAG        1515e208511e6c44ddb73ef0222327854a2cda5d
   GIT_PROGRESS   TRUE
 )
 # After the following call, the CMake targets defined by sdl_image and

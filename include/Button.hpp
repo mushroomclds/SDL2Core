@@ -16,6 +16,7 @@ class Button {
   void Draw(SDL_Renderer* ren);
   void SetPosition(const int& x, const int& y);
   void SetButtonSelected(bool buttonSelected);
+  bool GetButtonSelected() const;
   void SetSRECT(int x, int y, int h, int w);
   void SetSRECTX(int x) {
     this->srect_.x = x;
