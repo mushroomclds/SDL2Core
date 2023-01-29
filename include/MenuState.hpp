@@ -9,4 +9,5 @@ class Menu : public GameState {
   void OnLoop() override;
   void OnRender() override;
   Button* optionsButton;
+  Button* startGameButton;
 };

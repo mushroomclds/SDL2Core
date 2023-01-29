@@ -2,14 +2,15 @@
 
 #include <SDL_rect.h>
 #include <SDL_render.h>
+#include <string>
 #include "Mouse.hpp"
 
 class Button {
 
  public:
-  static SDL_Texture* tex;  //global variable, const
+  SDL_Texture* tex;  //global variable, const
 
-  Button(SDL_Renderer* ren, int x, int y);
+  Button(SDL_Renderer* ren, int x, int y, std::string pathToImage);
   ~Button();
 
   void Update(Mouse* mouse);

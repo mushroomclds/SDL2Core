@@ -4,11 +4,13 @@
 #include "Button.hpp"
 #include "SDL_image.h"
 
-SDL_Texture* Button::tex = nullptr;  //global variable, const
+// SDL_Texture* Button::tex = nullptr;  //global variable, const
 
-Button::Button(SDL_Renderer* ren, int x, int y) : srect_(), drect_() {
+Button::Button(SDL_Renderer* ren, int x, int y, std::string pathToImage)
+    : srect_(), drect_(), tex(nullptr) {
   if (tex == nullptr) {
-    tex = IMG_LoadTexture(ren, "../images/options.png");
+    const char* path = pathToImage.data();  //string to char ptr
+    tex              = IMG_LoadTexture(ren, path);
   }
   SetSRECT(x, y, SRECTH, SRECTW);
 }
@@ -43,16 +45,16 @@ bool Button::GetButtonSelected() const {
   return this->selected_;
 }
 
-void Button::SetDRECT(int x, int y, int h, int w) {
-  drect_.x = x;  //source rect
-  drect_.y = y;
-  drect_.h = h;  //SRECTH
-  drect_.w = w;  //SRECTW
-}
-
 void Button::SetSRECT(int x, int y, int h, int w) {
   srect_.x = x;  //source rect
   srect_.y = y;
   srect_.h = h;  //DRECTH
   srect_.w = w;  //DRECTW
+}
+
+void Button::SetDRECT(int x, int y, int h, int w) {  //sets the destination of button
+  drect_.x = x;                                      //destination rect
+  drect_.y = y;
+  drect_.h = h;  //SRECTH
+  drect_.w = w;  //SRECTW
 }

@@ -11,13 +11,15 @@
 #                                   MENU 
 #=============================================================================*/
 Menu::Menu() {  //initialized before main func since static class mem
-  this->bgd = IMG_LoadTexture(ren, "../images/Menu-2.png");
+  this->bgd = IMG_LoadTexture(ren, MENUSTATEBACKGROUND);
   if (this->bgd == nullptr) {
     LOG << "bgd image load error "
         << SDL_GetError();  //doesnt show because done at compile time since its static
   }
-  optionsButton = new Button(ren, BUTTON_ONE_X, BUTTON_ONE_Y);
+  optionsButton = new Button(ren, BUTTON_ONE_X, BUTTON_ONE_Y, OPTIONSBUTTONIMAGE);
   optionsButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);  //for destination rect
+  startGameButton = new Button(ren, STARTBUTTON_X, STARTBUTTON_Y, STARTBUTTONIMAGE);
+  startGameButton->SetPosition(STARTBUTTON_XPOS, STARTBUTTON_YPOS);  //for destination rect
   Mouse::UpdateShowCursorBool(false);  //can call directyl since its static function
 }
 
@@ -50,6 +52,7 @@ void Menu::OnRender() {
 
   SDL_RenderCopy(ren, this->bgd, nullptr, &rect);  //applies tex to bg
   optionsButton->Draw(ren);
+  startGameButton->Draw(ren);
   mouse->Draw(ren);
 
   SDL_RenderPresent(ren);  //renders above to window
