@@ -12,7 +12,7 @@ Options::Options() {
   if (this->bgd == nullptr) {
     LOG << "Options image load error " << SDL_GetError();
   }
-  menuButton = new Button(ren, 0, BUTTON_ONE_Y, MENUBUTTONIMAGE);  //BUTTON_ONE_Y should be 128 ?
+  menuButton = new Button(ren, 0, 0, MENUBUTTONIMAGE);  //BUTTON_ONE_Y should be 128 ?
   menuButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);
   Mouse::UpdateShowCursorBool(true);
 }

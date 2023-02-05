@@ -22,16 +22,16 @@ Button::~Button() {
 void Button::Update(Mouse* mouse) {
   if (SDL_HasIntersection(&mouse->GetPoint(), &drect_) != 0) {
     SetButtonSelected(true);
-    SetSRECTX(SRECTW);
+    SetSRECTY(64);  //sets x coord in image given
   }
   else {
     SetButtonSelected(false);
-    SetSRECTX(0);
+    SetSRECTY(0);  //sets x coord in image to 0
   }
 }
 
 void Button::Draw(SDL_Renderer* ren) {
-  SDL_RenderCopy(ren, tex, nullptr, &drect_);  //NULL should be srect but doesnt work for me
+  SDL_RenderCopy(ren, tex, &srect_, &drect_);  //NULL should be srect but doesnt work for me
 }
 
 void Button::SetPosition(const int& x, const int& y) {
@@ -45,16 +45,16 @@ bool Button::GetButtonSelected() const {
   return this->selected_;
 }
 
-void Button::SetSRECT(int x, int y, int h, int w) {
-  srect_.x = x;  //source rect
-  srect_.y = y;
-  srect_.h = h;  //DRECTH
-  srect_.w = w;  //DRECTW
+void Button::SetSRECT(int x, int y, int h, int w) {  //souce rect, image here
+  srect_.x = x;                                      //x coord of image given
+  srect_.y = y;                                      //y coord of image given
+  srect_.h = h;                                      //DRECTH, height of image
+  srect_.w = w;                                      //DRECTW, width of image
 }
 
-void Button::SetDRECT(int x, int y, int h, int w) {  //sets the destination of button
-  drect_.x = x;                                      //destination rect
-  drect_.y = y;
-  drect_.h = h;  //SRECTH
-  drect_.w = w;  //SRECTW
+void Button::SetDRECT(int x, int y, int h, int w) {  //destination rect
+  drect_.x = x;                                      //x coord of destination, on window
+  drect_.y = y;                                      //y coord of destination, on window
+  drect_.h = h;                                      //SRECTH, height of rect on window
+  drect_.w = w;                                      //SRECTW, width of rect on window
 }

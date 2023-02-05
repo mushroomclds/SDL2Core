@@ -16,9 +16,9 @@ Menu::Menu() {  //initialized before main func since static class mem
     LOG << "bgd image load error "
         << SDL_GetError();  //doesnt show because done at compile time since its static
   }
-  optionsButton = new Button(ren, BUTTON_ONE_X, BUTTON_ONE_Y, OPTIONSBUTTONIMAGE);
+  optionsButton = new Button(ren, 0, 0, OPTIONSBUTTONIMAGE);
   optionsButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);  //for destination rect
-  startGameButton = new Button(ren, STARTBUTTON_X, STARTBUTTON_Y, STARTBUTTONIMAGE);
+  startGameButton = new Button(ren, 0, 0, STARTBUTTONIMAGE);
   startGameButton->SetPosition(STARTBUTTON_XPOS, STARTBUTTON_YPOS);  //for destination rect
   Mouse::UpdateShowCursorBool(false);  //can call directyl since its static function
 }

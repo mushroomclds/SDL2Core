@@ -19,8 +19,8 @@ class Button {
   void SetButtonSelected(bool buttonSelected);
   bool GetButtonSelected() const;
   void SetSRECT(int x, int y, int h, int w);
-  void SetSRECTX(int x) {
-    this->srect_.x = x;
+  void SetSRECTY(int y) {
+    this->srect_.y = y;
   }
   void SetDRECT(int x, int y, int h, int w);
 
