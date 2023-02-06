@@ -4,7 +4,10 @@
 #include "SDL_image.h"
 
 Mouse::Mouse(SDL_Renderer* ren)
-    : rect_(), point_(), tex_(IMG_LoadTexture(ren, "../images/mouse.png")), showCursor_(false) {
+    : rect_(),
+      point_(),
+      tex_(IMG_LoadTexture(ren, "../images/mouseCursor.png")),
+      showCursor_(false) {
   const int xPos   = 300;
   const int yPos   = 300;
   const int width  = 50;

@@ -84,6 +84,7 @@ void Menu::OnLoop() {
 
     BaseUpdate();
     optionsButton->Update(mouse);
+    startGameButton->Update(mouse);
 
     const auto* key = SDL_GetKeyboardState(nullptr);
     if (key[SDL_SCANCODE_ESCAPE] != 0U) {
