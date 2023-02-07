@@ -24,6 +24,7 @@
 #define HALF_WIN_SIZE 2
 
 #define MENUSTATEBACKGROUND "../images/Menupage1.png"
+#define STARTGAMESTATEBACKGROUND "../images/StartGameState.png"
 #define OPTIONSSTATEBACKGROUND "../images/OptionsPage.png"
 #define OPTIONSBUTTONIMAGE "../images/optionsButton.png"
 #define STARTBUTTONIMAGE "../images/startButton.png"

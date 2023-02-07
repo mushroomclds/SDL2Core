@@ -21,6 +21,7 @@ class GameState {  //interface class
 
   static GameState* menu;
   static GameState* options;
+  static GameState* startGame;
   static GameState* currentGameState;
   static bool gameRunning;
   static Mouse* mouse;

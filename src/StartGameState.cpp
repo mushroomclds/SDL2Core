@@ -1,4 +1,4 @@
-#include "MenuState.hpp"
+#include "StartGameState.hpp"
 #include <SDL_events.h>
 #include <SDL_keyboard.h>
 #include <SDL_rect.h>
@@ -8,33 +8,29 @@
 #include "DEFINITIONS.hpp"
 
 /*=============================================================================
-#                                   MENU 
+#                                   StartGameState 
 #=============================================================================*/
-Menu::Menu() {  //initialized before main func since static class mem
-  this->bgd = IMG_LoadTexture(ren, MENUSTATEBACKGROUND);
+StartGameState::StartGameState() {  //initialized before main func since static class mem
+  this->bgd = IMG_LoadTexture(ren, STARTGAMESTATEBACKGROUND);
   if (this->bgd == nullptr) {
     LOG << "bgd image load error "
         << SDL_GetError();  //doesnt show because done at compile time since its static
   }
-  optionsButton = new Button(ren, 0, 0, OPTIONSBUTTONIMAGE);
-  optionsButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);  //for destination rect
-  startGameButton = new Button(ren, 0, 0, STARTBUTTONIMAGE);
-  startGameButton->SetPosition(STARTBUTTON_XPOS, STARTBUTTON_YPOS);  //for destination rect
-  Mouse::UpdateShowCursorBool(false);  //can call directyl since its static function
+  Mouse::UpdateShowCursorBool(false);  //can call directly since its static function
 }
 
-Menu::~Menu() {
+StartGameState::~StartGameState() {
   SDL_DestroyTexture(this->bgd);
 };
 
-void Menu::OnActivate() {
+void StartGameState::OnActivate() {
   stateRunning = true;
   Mouse::UpdateShowCursorBool(false);
 }
 
-void Menu::OnDeactivate() {
+void StartGameState::OnDeactivate() {
 
-  LOG << "Menu Deactivate called";
+  LOG << "StartGameState Deactivate called";
   SDL_DestroyRenderer(ren);
   SDL_DestroyWindow(win);
   SDL_Quit();
@@ -43,7 +39,7 @@ void Menu::OnDeactivate() {
 /*=============================================================================
 #                                   Render  
 #=============================================================================*/
-void Menu::OnRender() {
+void StartGameState::OnRender() {
   SDL_RenderClear(ren);  //clears window before new frame to render
   SDL_Rect rect{0,
                 0,
@@ -51,8 +47,6 @@ void Menu::OnRender() {
                 VIDEOMODE_HEIGHT};  //bg rect that will have tex applied to below
 
   SDL_RenderCopy(ren, this->bgd, nullptr, &rect);  //applies tex to bg
-  optionsButton->Draw(ren);
-  startGameButton->Draw(ren);
   mouse->Draw(ren);
 
   SDL_RenderPresent(ren);  //renders above to window
@@ -61,7 +55,7 @@ void Menu::OnRender() {
 /*=============================================================================
 #                                   Poll Events 
 #=============================================================================*/
-void Menu::OnLoop() {
+void StartGameState::OnLoop() {
   while (stateRunning) {
 
     SDL_Event e;
@@ -73,22 +67,16 @@ void Menu::OnLoop() {
           stateRunning = false;
           OnDeactivate();
           break;
-        case SDL_MOUSEBUTTONUP:
-          if (optionsButton->GetButtonSelected()) {  //checks if menu button pressed this state
-            currentGameState = GameState::options;
-            stateRunning     = false;
-          }
-          if (startGameButton->GetButtonSelected()) {
-            currentGameState = GameState::startGame;
-            stateRunning     = false;
-          }
-          break;
+          // case SDL_MOUSEBUTTONUP://checks if menu button pressed this state
+          //   if (optionsButton->GetButtonSelected()) {
+          //     currentGameState = options;
+          //     stateRunning     = false;
+          //   }
+          //   break;
       }
     }
 
     BaseUpdate();
-    optionsButton->Update(mouse);
-    startGameButton->Update(mouse);
 
     const auto* key = SDL_GetKeyboardState(nullptr);
     if (key[SDL_SCANCODE_ESCAPE] != 0U) {  //if esc is pressed, exits app
@@ -98,7 +86,7 @@ void Menu::OnLoop() {
       OnDeactivate();
     }
     if (key[SDL_SCANCODE_1] != 0U) {  //if 1 pressed, changes to this state
-      currentGameState = options;
+      currentGameState = GameState::startGame;
       break;
     }
 

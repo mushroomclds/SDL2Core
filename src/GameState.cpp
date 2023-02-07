@@ -2,6 +2,7 @@
 #include <memory>
 #include "MenuState.hpp"
 #include "OptionsState.hpp"
+#include "StartGameState.hpp"
 #include "SDL_image.h"
 #include <SDL_error.h>
 #include <SDL_events.h>
@@ -19,6 +20,7 @@ SDL_Renderer* GameState::ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERA
 
 GameState* GameState::menu             = new Menu;
 GameState* GameState::options          = new Options;
+GameState* GameState::startGame        = new StartGameState;
 GameState* GameState::currentGameState = menu;
 bool GameState::gameRunning            = true;
 Mouse* GameState::mouse                = new Mouse(ren);

@@ -61,7 +61,7 @@ void Options::OnLoop() {
         //     gameRunning = false;
         //   }
         case SDL_MOUSEBUTTONUP:
-          if (menuButton->GetButtonSelected()) {
+          if (menuButton->GetButtonSelected()) {  //checks if menu button pressed this state
             currentGameState = menu;
             stateRunning     = false;
           }
@@ -73,12 +73,12 @@ void Options::OnLoop() {
     menuButton->Update(mouse);
 
     const auto* key = SDL_GetKeyboardState(nullptr);
-    if (key[SDL_SCANCODE_ESCAPE] != 0U) {
+    if (key[SDL_SCANCODE_ESCAPE] != 0U) {  //if esc is pressed, exits app
       gameRunning  = false;
       stateRunning = false;
       OnDeactivate();
     }
-    if (key[SDL_SCANCODE_2] != 0U) {
+    if (key[SDL_SCANCODE_2] != 0U) {  //if 2 pressed, changes to this state
       currentGameState = menu;
       break;
     }
