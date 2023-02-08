@@ -3,6 +3,7 @@
 #include <SDL_keyboard.h>
 #include <SDL_rect.h>
 #include <SDL_render.h>
+#include "Button.hpp"
 #include "GameState.hpp"
 #include "SDL_image.h"
 #include "DEFINITIONS.hpp"
@@ -17,6 +18,8 @@ StartGameState::StartGameState() {  //initialized before main func since static 
         << SDL_GetError();  //doesnt show because done at compile time since its static
   }
   Mouse::UpdateShowCursorBool(false);  //can call directly since its static function
+  goToMenuButton = new Button(GameState::ren, 0, 0, MENUBUTTONIMAGE);
+  goToMenuButton->SetPosition(15, 15);
 }
 
 StartGameState::~StartGameState() {
@@ -47,7 +50,8 @@ void StartGameState::OnRender() {
                 VIDEOMODE_HEIGHT};  //bg rect that will have tex applied to below
 
   SDL_RenderCopy(ren, this->bgd, nullptr, &rect);  //applies tex to bg
-  mouse->Draw(ren);
+  goToMenuButton->Draw(GameState::ren);
+  mouse->Draw(ren);  //should draw mouse last to show on top
 
   SDL_RenderPresent(ren);  //renders above to window
 }
@@ -67,16 +71,17 @@ void StartGameState::OnLoop() {
           stateRunning = false;
           OnDeactivate();
           break;
-          // case SDL_MOUSEBUTTONUP://checks if menu button pressed this state
-          //   if (optionsButton->GetButtonSelected()) {
-          //     currentGameState = options;
-          //     stateRunning     = false;
-          //   }
-          //   break;
+        case SDL_MOUSEBUTTONUP:  //checks if goToMenuButton was pressed to go to menu
+          if (goToMenuButton->GetButtonSelected()) {
+            currentGameState   = GameState::menu;
+            this->stateRunning = false;
+          }
+          break;
       }
     }
 
     BaseUpdate();
+    goToMenuButton->Update(mouse);  //show highlighted button, changes spritesheet image
 
     const auto* key = SDL_GetKeyboardState(nullptr);
     if (key[SDL_SCANCODE_ESCAPE] != 0U) {  //if esc is pressed, exits app

@@ -25,6 +25,7 @@
 
 #define MENUSTATEBACKGROUND "../images/Menupage1.png"
 #define STARTGAMESTATEBACKGROUND "../images/StartGameState.png"
+#define GOTOMENUBUTTONIMAGE "../images/goToMenuButton.png"
 #define OPTIONSSTATEBACKGROUND "../images/OptionsPage.png"
 #define OPTIONSBUTTONIMAGE "../images/optionsButton.png"
 #define STARTBUTTONIMAGE "../images/startButton.png"

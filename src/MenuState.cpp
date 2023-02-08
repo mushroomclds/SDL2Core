@@ -87,7 +87,7 @@ void Menu::OnLoop() {
     }
 
     BaseUpdate();
-    optionsButton->Update(mouse);
+    optionsButton->Update(mouse);  //show highlighted button, changes spritesheet image
     startGameButton->Update(mouse);
 
     const auto* key = SDL_GetKeyboardState(nullptr);

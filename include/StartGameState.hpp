@@ -8,4 +8,6 @@ class StartGameState : public GameState {
   void OnDeactivate() override;
   void OnLoop() override;
   void OnRender() override;
+
+  Button* goToMenuButton;
 };
