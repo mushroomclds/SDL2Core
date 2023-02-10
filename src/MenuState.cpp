@@ -24,6 +24,7 @@ Menu::Menu() {  //initialized before main func since static class mem
 }
 
 Menu::~Menu() {
+  LOG << "Menu State Object Deallocated";
   SDL_DestroyTexture(this->bgd);
 };
 

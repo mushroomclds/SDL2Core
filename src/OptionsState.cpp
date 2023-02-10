@@ -17,7 +17,8 @@ Options::Options() {
   Mouse::UpdateShowCursorBool(true);
 }
 
-Options::~Options() {
+Options::~Options() {  //deallocates mem for Options components
+  LOG << "Options State Object Deallocated";
   SDL_DestroyTexture(this->bgd);
 };
 

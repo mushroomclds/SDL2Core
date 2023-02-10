@@ -23,6 +23,7 @@ StartGameState::StartGameState() {  //initialized before main func since static 
 }
 
 StartGameState::~StartGameState() {
+  LOG << "StartGame State Object Deallocated";
   SDL_DestroyTexture(this->bgd);
 };
 
