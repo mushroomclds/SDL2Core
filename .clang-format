@@ -57,7 +57,6 @@ ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true 
 DerivePointerBinding: false 
 FixNamespaceComments: false 
-ForEachMacros: ['BOOST_FOREACH'] 
 IndentCaseLabels: true 
 IndentFunctionDeclarationAfterType: true 
 KeepEmptyLinesAtTheStartOfBlocks: true 

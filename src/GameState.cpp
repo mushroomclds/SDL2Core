@@ -45,7 +45,7 @@ void GameState::OnActivate() {
   gameRunning = true;
 }
 void GameState::OnDeactivate() {
-  LOG << "GameState memory freed";
+  spdlog::info("GameState memory freed");
   SDL_DestroyRenderer(ren);
   SDL_DestroyWindow(win);
   SDL_Quit();
@@ -53,7 +53,7 @@ void GameState::OnDeactivate() {
 void GameState::OnRender() {
 }
 void GameState::OnLoop() {
-  LOG << "GameState OnLoop()";
+  spdlog::info("GameState OnLoop()");
 }
 
 void GameState::BaseUpdate() {

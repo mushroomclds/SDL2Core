@@ -1,21 +1,17 @@
 #pragma once
 #include <string>
-#include <boost/log/core.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/sinks/text_file_backend.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/sources/severity_logger.hpp>
-#include <boost/log/sources/record_ostream.hpp>
 #include <iomanip>
+#include "spdlog/spdlog.h"
+#include <spdlog/sinks/basic_file_sink.h>
+#include "Logger.hpp"
+
 
 #define LFC1_LOG_TRACE(logger)
 
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-#define LOG               \
-  BOOST_LOG_TRIVIAL(info) \
-      << "[" << __FILENAME__ << " | Line: " << __LINE__ << "]"  //<< std::setw(30) << std::left
+// #define LOG               \
+//   auto logger = Logger::get_logger(); \
+//       logger->info  //<< std::setw(30) << std::left
 
 #define FRAMERATE 75
 

@@ -3,18 +3,17 @@
 cmake_minimum_required(VERSION 3.24.2)
 
 # project name
-project(SDL2-project) #${PROJECT_NAME} 
+project(SDL2-project) #${PROJECT_NAME}
 
 set(CMAKE_CXX_STANDARD 17)
 
 file( GLOB LIB_SOURCES src/*.cpp )
 file( GLOB LIB_HEADERS lib/*.hpp )
 file( GLOB INCLUDE_HEADERS include/*.hpp )
-file( GLOB INCLUDE_IMAGES images/*.png)
-add_executable(${PROJECT_NAME} ${LIB_SOURCES} ${LIB_HEADERS} ${INCLUDE_HEADERS} ${INCLUDE_IMAGES}) 
-# set(HEADER_FILES )
-# add_library(headers ${LIB_SOURCES})
+add_executable(${PROJECT_NAME} ${LIB_SOURCES} ${LIB_HEADERS} ${INCLUDE_HEADERS}) 
 target_include_directories(${PROJECT_NAME} PUBLIC include build/_deps/sdl_image-src images)
+
+include_directories(${CMAKE_SOURCE_DIR}/include) 
 #*=============================================================================
 #                         EGL 
 #=============================================================================*/
@@ -42,18 +41,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC include build/_deps/sdl_image-
 # include_directories(${opengl_SOURCE_DIR}/api)
 # message(${opengl_SOURCE_DIR})
 #*=============================================================================
-#                         SDL2 
-#=============================================================================*/
-include_directories(C:/SDL2-devel-2.26.1-mingw/SDL2-2.26.1/x86_64-w64-mingw32/include) 
-set(SDL2_ROOT C:/SDL2-devel-2.26.1-mingw)
-find_package(SDL2 REQUIRED SDL2)
-if (SDL2_FOUND)
-    include_directories(${SDL2_INCLUDE_DIR})
-    message(${SDL2_INCLUDE_DIR})
-    target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
-    message(${SDL2_LIBRARIES})
-endif()
-#*=============================================================================
 #                         SDL_Image
 #=============================================================================*/
 # Add SDL2 CMake modules
@@ -70,11 +57,12 @@ include(FetchContent)
 FetchContent_Declare(
   sdl_image #has to be lowercase? 
   GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
-  GIT_TAG        1515e208511e6c44ddb73ef0222327854a2cda5d
+  GIT_TAG SDL2
   GIT_PROGRESS   TRUE
 )
 # After the following call, the CMake targets defined by sdl_image and
 # sdl_image will be available to the rest of the build
+set(SDL2IMAGE_BUILD_SHARED_LIBS ON)
 FetchContent_MakeAvailable(sdl_image)
 
 set(SDL_LIBRARIES ${SDL_LIBRARIES} SDL2_image)
@@ -100,34 +88,46 @@ target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARIES})
 
 # find_package(SDL2_image REQUIRED)
 # target_link_libraries(${PROJECT_NAME} SDL2_image::SDL2_image)
-
 #*=============================================================================
-#                         Boost LOG 
+#                         SDL2 
 #=============================================================================*/
-set(Boost_USE_STATIC_LIBS ON) 
-set(Boost_USE_MULTITHREADED ON)  
-set(Boost_USE_STATIC_RUNTIME OFF) 
-# set(Boost_INCLUDE_DIR C:/local/boost_1_80_0)
-# set(Boost_COMPILER "-vc143")
-set(BOOST_ROOT C:/local/boost_1_80_0)
-# add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
-set(Boost_DIR C:/local/boost_1_80_0/stage/lib/cmake/Boost-1.80.0/)
-find_package(Boost CONFIG REQUIRED log log_setup) 
-# include_directories(${Boost_INCLUDE_DIRS})
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS}) 
-    target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+include_directories(C:\\SDL2-devel-2.30.1-mingw\\SDL2-2.30.1\\x86_64-w64-mingw32\\include\\SDL2\\) 
+set(SDL2_ROOT C:\\SDL2-devel-2.30.1-mingw)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+find_package(SDL2 REQUIRED SDL2)
+if (SDL2_FOUND)
+    include_directories(${SDL2_INCLUDE_DIR})
+    message(${SDL2_INCLUDE_DIR})
+    target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
+    message(${SDL2_LIBRARIES})
 endif()
+#*=============================================================================
+#                         spdlog  
+#=============================================================================*/
+include(FetchContent)
+
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY "https://github.com/gabime/spdlog.git"
+    GIT_TAG v1.10.0 # Use the desired version
+)
+set(SPDLOG_BUILD_SHARED ON)
+FetchContent_MakeAvailable(spdlog)
+target_link_libraries(SDL2-project spdlog::spdlog)
 #*=============================================================================
 #                         Copy dlls to build directory
 #=============================================================================*/
 if(WIN32)
-    file(GLOB BINARY_DEP_DLLS "C:/SDL2-2.26.1-win32-x64/*.dll")
-    file(COPY ${BINARY_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
+    #if dll not showing do Cmake: clean and rebuild 
+    # Cmake: select a kit to change compiler cmake uses 
+    file(GLOB SDL2_DLL "C:/SDL2-devel-2.30.1-mingw/SDL2-2.30.1/x86_64-w64-mingw32/bin/SDL2.dll")
+    file(COPY ${SDL2_DLL} DESTINATION ${CMAKE_BINARY_DIR})
     file(GLOB MINGW_DEP_DLLS "C:/mingw64/bin/*.dll")
     file(COPY ${MINGW_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
-    file(GLOB BOOST_DEP_DLLS "C:/local/boost_1_80_0/lib64-msvc-14.3/*.dll")
-    file(COPY ${BOOST_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
+    file(GLOB MINGW_DEP_DLLS "C:/msys64/mingw64/bin/*.dll")
+    file(COPY ${MINGW_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
     file(GLOB SDL2_IMAGED_DEP_DLLS "build/_deps/sdl_image-build/SDL2_imaged.dll")
     file(COPY ${SDL2_IMAGED_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
+    file(GLOB libspdlogd "build/_deps/spdlog-build/libspdlogd.dll")
+    file(COPY ${libspdlogd} DESTINATION ${CMAKE_BINARY_DIR})
 endif()

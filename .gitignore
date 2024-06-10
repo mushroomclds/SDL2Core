@@ -1,5 +1,5 @@
 .cache
 build
-default_0.log
+logs.txt
 launch.json
 CMakeLists.txt

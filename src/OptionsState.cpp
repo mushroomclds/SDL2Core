@@ -9,16 +9,13 @@
 #=============================================================================*/
 Options::Options() {
   this->bgd = IMG_LoadTexture(ren, OPTIONSSTATEBACKGROUND);
-  if (this->bgd == nullptr) {
-    LOG << "Options image load error " << SDL_GetError();
-  }
+  
   menuButton = new Button(ren, 0, 0, MENUBUTTONIMAGE);  //BUTTON_ONE_Y should be 128 ?
   menuButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);
   Mouse::UpdateShowCursorBool(true);
 }
 
 Options::~Options() {  //deallocates mem for Options components
-  LOG << "Options State Object Deallocated";
   SDL_DestroyTexture(this->bgd);
 };
 

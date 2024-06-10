@@ -13,8 +13,7 @@
 Menu::Menu() {  //initialized before main func since static class mem
   this->bgd = IMG_LoadTexture(ren, MENUSTATEBACKGROUND);
   if (this->bgd == nullptr) {
-    LOG << "bgd image load error "
-        << SDL_GetError();  //doesnt show because done at compile time since its static
+    spdlog::info("bgd image load error " + std::string(SDL_GetError())); //doesnt show because done at compile time since its static
   }
   optionsButton = new Button(ren, 0, 0, OPTIONSBUTTONIMAGE);
   optionsButton->SetPosition(BUTTON_ONE_XPOS, BUTTON_ONE_YPOS);  //for destination rect
@@ -24,7 +23,7 @@ Menu::Menu() {  //initialized before main func since static class mem
 }
 
 Menu::~Menu() {
-  LOG << "Menu State Object Deallocated";
+  spdlog::info("Menu State Object Deallocated");
   SDL_DestroyTexture(this->bgd);
 };
 
@@ -35,7 +34,7 @@ void Menu::OnActivate() {
 
 void Menu::OnDeactivate() {
 
-  LOG << "Menu Deactivate called";
+  spdlog::info("Menu Deactivate called");
   SDL_DestroyRenderer(ren);
   SDL_DestroyWindow(win);
   SDL_Quit();
@@ -69,7 +68,7 @@ void Menu::OnLoop() {
     while (SDL_PollEvent(&e) != 0) {
       switch (e.type) {
         case SDL_QUIT:
-          LOG << "x closed";
+          spdlog::info("x closed");
           gameRunning  = false;
           stateRunning = false;
           OnDeactivate();
@@ -93,7 +92,7 @@ void Menu::OnLoop() {
 
     const auto* key = SDL_GetKeyboardState(nullptr);
     if (key[SDL_SCANCODE_ESCAPE] != 0U) {  //if esc is pressed, exits app
-      LOG << "scancode escape";
+      spdlog::info("scancode escape");
       gameRunning  = false;
       stateRunning = false;
       OnDeactivate();
